@@ -9,18 +9,15 @@
 /* Begin PBXBuildFile section */
 		44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */; };
 		44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */; };
-		44BCFA282C39CC7B00E1FE10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA272C39CC7B00E1FE10 /* ViewController.swift */; };
-		44BCFA2B2C39CC7B00E1FE10 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2A2C39CC7B00E1FE10 /* Base */; };
 		44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */; };
 		44BCFA302C39CC7F00E1FE10 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2F2C39CC7F00E1FE10 /* Base */; };
+		44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		44BCFA272C39CC7B00E1FE10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		44BCFA2A2C39CC7B00E1FE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44BCFA2F2C39CC7F00E1FE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44BCFA312C39CC7F00E1FE10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +42,7 @@
 				44BCFA382C39CD6400E1FE10 /* Moduls */,
 				44BCFA222C39CC7A00E1FE10 /* MatchMaker */,
 				44BCFA212C39CC7A00E1FE10 /* Products */,
+				44BCFA392C39E3A400E1FE10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,13 +59,18 @@
 			children = (
 				44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */,
 				44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */,
-				44BCFA272C39CC7B00E1FE10 /* ViewController.swift */,
-				44BCFA292C39CC7B00E1FE10 /* Main.storyboard */,
 				44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */,
 				44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */,
 				44BCFA312C39CC7F00E1FE10 /* Info.plist */,
 			);
 			path = MatchMaker;
+			sourceTree = "<group>";
+		};
+		44BCFA392C39E3A400E1FE10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +89,9 @@
 			dependencies = (
 			);
 			name = MatchMaker;
+			packageProductDependencies = (
+				44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */,
+			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
 			productType = "com.apple.product-type.application";
@@ -129,7 +136,6 @@
 			files = (
 				44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */,
 				44BCFA302C39CC7F00E1FE10 /* Base in Resources */,
-				44BCFA2B2C39CC7B00E1FE10 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +146,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44BCFA282C39CC7B00E1FE10 /* ViewController.swift in Sources */,
 				44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */,
 				44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */,
 			);
@@ -149,14 +154,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		44BCFA292C39CC7B00E1FE10 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				44BCFA2A2C39CC7B00E1FE10 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -298,7 +295,6 @@
 				INFOPLIST_FILE = MatchMaker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -328,7 +324,6 @@
 				INFOPLIST_FILE = MatchMaker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -369,6 +364,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MatchMakerLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44BCFA182C39CC7A00E1FE10 /* Project object */;
 }

@@ -17,7 +17,10 @@ let package = Package(
             name: "MatchMakerLogin",
             dependencies: [
                 "SnapKit",
-                "PhoneNumberKit"]
+                "PhoneNumberKit"],
+            resources: [
+                .process("Resources")
+            ]
         ),
     ]
 )
