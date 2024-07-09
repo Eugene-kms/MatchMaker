@@ -19,5 +19,11 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Bold.ttf</string>
+		<string>AvenirNext-Regular.ttf</string>
+		<string>AvenirNext-Demi.ttf</string>
+	</array>
 </dict>
 </plist>
