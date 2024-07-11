@@ -19,10 +19,12 @@ public class PhoneNumberViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        configureKeyboard()
         subscribeToTextChange()
         textFieldDidChange()
         
         textField.becomeFirstResponder()
+        
     }
     
     deinit {
@@ -31,6 +33,46 @@ public class PhoneNumberViewController: UIViewController {
     
     private func subscribeToTextChange() {
         NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange), name: UITextField.textDidChangeNotification, object: self)
+    }
+    
+}
+
+extension PhoneNumberViewController {
+    
+    private func configureKeyboard() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let endFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        
+        let animationCurveRawNumber = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSNumber
+        let animationCurveRaw = animationCurveRawNumber?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+        let animationCurve = UIView.AnimationOptions(rawValue: animationCurveRaw)
+        
+        let isKeyboardHidden = endFrame.origin.y >= UIScreen.main.bounds.size.height
+        
+        let topMargin = isKeyboardHidden ? -40 : -endFrame.height + view.safeAreaInsets.bottom - 16
+        
+        continueButton.snp.updateConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(topMargin)
+        }
+        
+        UIView.animate(withDuration: duration, delay: 0, options: animationCurve) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
@@ -50,7 +92,7 @@ extension PhoneNumberViewController {
     private func setupStackView() {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 24
+        stackView.spacing = 32
         
         view.addSubview(stackView)
         
@@ -99,9 +141,7 @@ extension PhoneNumberViewController {
         let textFieldBackground = UIView()
         
         textFieldBackground.layer.cornerRadius = 6
-        textFieldBackground.layer.borderWidth = 1
-        textFieldBackground.layer.borderColor = UIColor.black.withAlphaComponent(0.10).cgColor
-        textFieldBackground.layer.masksToBounds = true
+        textFieldBackground.layer.masksToBounds = false
         textFieldBackground.backgroundColor = .white
         
         stackView.addArrangedSubview(textFieldBackground)
@@ -110,6 +150,16 @@ extension PhoneNumberViewController {
             make.width.equalToSuperview()
             make.height.equalTo(55)
         }
+        
+        view.layoutIfNeeded()
+        
+        textFieldBackground.layer.borderColor = UIColor.black.withAlphaComponent(0.10).cgColor
+        textFieldBackground.layer.borderWidth = 1
+        textFieldBackground.layer.shadowColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        textFieldBackground.layer.shadowOffset = CGSize(width: 0, height: 7)
+        textFieldBackground.layer.shadowRadius = 64
+        textFieldBackground.layer.shadowPath = UIBezierPath(roundedRect: textFieldBackground.bounds, cornerRadius: textFieldBackground.layer.cornerRadius).cgPath
+        textFieldBackground.layer.shadowOpacity = 1
         
         let textField = PhoneNumberTextField(insets: UIEdgeInsets(top: 13.5, left: 3, bottom: 13.5, right: 10), clearButtonPadding: 0)
         
@@ -135,7 +185,9 @@ extension PhoneNumberViewController {
         let button = UIButton()
         
         button.backgroundColor = UIColor(resource: .accent)
+        
         button.titleLabel?.font = .continueButton
+        button.titleLabel?.textColor = .white
         button.setTitle(PhoneNumberStrings.continueButton.rawValue, for: .normal)
         button.layer.cornerRadius = 14
         button.layer.masksToBounds = true
@@ -145,9 +197,13 @@ extension PhoneNumberViewController {
         
         button.snp.makeConstraints { make in
             make.height.equalTo(58)
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
+            make.width.equalTo(306)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
         }
+        
+        view.layoutIfNeeded()
+        button.applyGradient(colours: [UIColor(resource: .accent), UIColor(resource: .accent1)])
         
         self.continueButton = button
     }
@@ -168,3 +224,4 @@ extension PhoneNumberViewController {
         print("Did tap continue!")
     }
 }
+
