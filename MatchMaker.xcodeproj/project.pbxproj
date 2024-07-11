@@ -13,8 +13,9 @@
 		44BCFA302C39CC7F00E1FE10 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2F2C39CC7F00E1FE10 /* Base */; };
 		44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */; };
 		44C442012C3DCD91008ED9F8 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442002C3DCD91008ED9F8 /* Poppins-Bold.ttf */; };
-		44C442032C3DCDC5008ED9F8 /* AvenirNext-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442022C3DCDC5008ED9F8 /* AvenirNext-Regular.ttf */; };
-		44C442072C3DDD50008ED9F8 /* AvenirNext-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442062C3DDD50008ED9F8 /* AvenirNext-Demi.ttf */; };
+		44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */; };
+		44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */; };
+		44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +27,9 @@
 		44BCFA312C39CC7F00E1FE10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44BCFA382C39CD6400E1FE10 /* Moduls */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Moduls; sourceTree = "<group>"; };
 		44C442002C3DCD91008ED9F8 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		44C442022C3DCDC5008ED9F8 /* AvenirNext-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNext-Regular.ttf"; sourceTree = "<group>"; };
-		44C442062C3DDD50008ED9F8 /* AvenirNext-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNext-Demi.ttf"; sourceTree = "<group>"; };
+		44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Medium.ttf"; sourceTree = "<group>"; };
+		44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Bold.ttf"; sourceTree = "<group>"; };
+		44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				44C442002C3DCD91008ED9F8 /* Poppins-Bold.ttf */,
-				44C442062C3DDD50008ED9F8 /* AvenirNext-Demi.ttf */,
-				44C442022C3DCDC5008ED9F8 /* AvenirNext-Regular.ttf */,
+				44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */,
+				44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */,
+				44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -159,11 +162,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */,
+				44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */,
+				44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */,
 				44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */,
 				44C442012C3DCD91008ED9F8 /* Poppins-Bold.ttf in Resources */,
-				44C442032C3DCDC5008ED9F8 /* AvenirNext-Regular.ttf in Resources */,
 				44BCFA302C39CC7F00E1FE10 /* Base in Resources */,
-				44C442072C3DDD50008ED9F8 /* AvenirNext-Demi.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

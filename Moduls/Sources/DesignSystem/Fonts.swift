@@ -2,8 +2,9 @@ import UIKit
 
 public enum Fonts: String {
     case PoppinsBold = "Poppins-Bold"
-    case AvenirNextRegular = "AvenirNext-Regular"
-    case AvenirNextDemi = "AvenirNext-Demi"
+    case AvenirRegular = "AvenirNextCyr-Regular"
+    case AvenirMedium = "AvenirNextCyr-Medium"
+    case AvenirBold = "AvenirNextCyr-Bold"
 }
 
 public extension UIFont {
@@ -12,10 +13,14 @@ public extension UIFont {
     }
     
     static var subtitle: UIFont {
-        UIFont(name: Fonts.AvenirNextRegular.rawValue, size: 18)!
+        UIFont(name: Fonts.AvenirRegular.rawValue, size: 18)!
+    }
+    
+    static var textField: UIFont {
+        UIFont(name: Fonts.AvenirMedium.rawValue, size: 18)!
     }
     
     static var continueButton: UIFont {
-        UIFont(name: Fonts.AvenirNextDemi.rawValue, size: 20)!
+        UIFont(name: Fonts.AvenirBold.rawValue, size: 20)!
     }
 }
