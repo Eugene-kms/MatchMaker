@@ -22,6 +22,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-Regular.ttf</string>
 		<string>AvenirNextCyr-Medium.ttf</string>
 		<string>AvenirNextCyr-Bold.ttf</string>
 		<string>AvenirNextCyr-Regular.ttf</string>

@@ -16,6 +16,8 @@
 		44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */; };
 		44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */; };
 		44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */; };
+		44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 44C442162C42B55D008ED9F8 /* DesignSystem */; };
+		44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,7 @@
 		44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Medium.ttf"; sourceTree = "<group>"; };
 		44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Bold.ttf"; sourceTree = "<group>"; };
 		44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Regular.ttf"; sourceTree = "<group>"; };
+		44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */,
+				44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				44C442002C3DCD91008ED9F8 /* Poppins-Bold.ttf */,
+				44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */,
 				44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */,
 				44C4420E2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf */,
 				44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */,
@@ -119,6 +124,7 @@
 			name = MatchMaker;
 			packageProductDependencies = (
 				44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */,
+				44C442162C42B55D008ED9F8 /* DesignSystem */,
 			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
@@ -164,6 +170,7 @@
 			files = (
 				44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */,
 				44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */,
+				44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */,
 				44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */,
 				44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */,
 				44C442012C3DCD91008ED9F8 /* Poppins-Bold.ttf in Resources */,
@@ -401,6 +408,10 @@
 		44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MatchMakerLogin;
+		};
+		44C442162C42B55D008ED9F8 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
