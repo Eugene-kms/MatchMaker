@@ -15,17 +15,20 @@ let package = Package(
         .package(url: "https://github.com/marmelroy/PhoneNumberKit", from: "3.7.0"),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
     ],
+    
     targets: [
         .target(
             name: "MatchMakerLogin",
             dependencies: [
                 "SnapKit",
                 "PhoneNumberKit",
-                "DesignSystem"],
+                "DesignSystem"]
+        ),
+        .target(
+            name: "DesignSystem",
             resources: [
                 .process("Resources")
             ]
-        ),
-        .target(name: "DesignSystem")
+        )
     ]
 )
