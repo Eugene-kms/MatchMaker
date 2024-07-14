@@ -137,7 +137,6 @@ extension PhoneNumberViewController {
     
     private func setupTitle() {
         let title = UILabel()
-        
         let attributedString = NSAttributedString(
             string: PhoneNumberStrings.title.rawValue,
             attributes: [.paragraphStyle: UIFont.title.paragraphStyle(forLineHight: 50.5)])
@@ -177,15 +176,15 @@ extension PhoneNumberViewController {
         stackView.addArrangedSubview(textFieldBackground)
         
         textFieldBackground.snp.makeConstraints { make in
-            make.width.equalToSuperview()
             make.height.equalTo(55)
+            make.width.equalToSuperview()
         }
         
         view.layoutIfNeeded()
         
         textFieldBackground.layer.borderColor = UIColor.black.withAlphaComponent(0.10).cgColor
         textFieldBackground.layer.borderWidth = 1
-        textFieldBackground.layer.shadowColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        textFieldBackground.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
         textFieldBackground.layer.shadowOffset = CGSize(width: 0, height: 7)
         textFieldBackground.layer.shadowRadius = 64
         textFieldBackground.layer.shadowPath = UIBezierPath(roundedRect: textFieldBackground.bounds, cornerRadius: textFieldBackground.layer.cornerRadius).cgPath
@@ -213,9 +212,6 @@ extension PhoneNumberViewController {
     
     private func setupContinueButton() {
         let button = UIButton()
-        
-        button.backgroundColor = .accent
-        
         button.titleLabel?.font = .continueButton
         button.titleLabel?.textColor = .white
         button.setTitle(PhoneNumberStrings.continueButton.rawValue, for: .normal)
@@ -223,14 +219,14 @@ extension PhoneNumberViewController {
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
         
-        stackView.addArrangedSubview(button)
+        view.addSubview(button)
         
         button.snp.makeConstraints { make in
             make.height.equalTo(58)
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-84)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
         }
         
         view.layoutIfNeeded()

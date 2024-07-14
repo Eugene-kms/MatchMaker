@@ -13,9 +13,10 @@ enum OTPStrings: String {
 public final class OTPViewController: UIViewController {
     
     private weak var stackView: UIStackView!
-    private var textFields: [UITextField] = []
     private weak var continueButton: UIButton!
     private weak var resendButton: UIButton!
+    
+    private var textFields: [UITextField] = []
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,23 +167,14 @@ extension OTPViewController {
         
         let fieldsStackView = UIStackView()
         fieldsStackView.axis = .horizontal
-        fieldsStackView.spacing = 8
+        fieldsStackView.distribution = .equalSpacing
         fieldsStackView.alignment = .center
         
         for index in 0...5 {
             
-            let background = GradientView()
-            background.configureGradient(colours: [.accent, .aceentGradient])
+            let background = UIView()
             background.layer.cornerRadius = 13.4
             background.layer.masksToBounds = true
-            
-            let shadow = UIView()
-            view.layoutIfNeeded()
-            shadow.layer.shadowColor = UIColor.accent.withAlphaComponent(0.5).cgColor
-            shadow.layer.shadowOffset = CGSize(width: 0, height: 7)
-            shadow.layer.shadowRadius = 64
-            shadow.layer.shadowPath = UIBezierPath(roundedRect: shadow.bounds, cornerRadius: shadow.layer.cornerRadius).cgPath
-            shadow.layer.shadowOpacity = 1
             
             let textField = UITextField()
             textField.textAlignment = .center
@@ -192,7 +184,6 @@ extension OTPViewController {
             textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
             textField.tag = 100 + index
             
-            background.addSubview(shadow)
             background.addSubview(textField)
             
             background.snp.makeConstraints { make in
@@ -206,10 +197,29 @@ extension OTPViewController {
             
             fieldsStackView.addArrangedSubview(background)
             fields.append(textField)
-
+            
         }
         
         stackView.addArrangedSubview(fieldsStackView)
+        
+        fieldsStackView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+        }
+        
+        view.layoutIfNeeded()
+        for field in fields {
+            field.superview?.applyGradient(
+                colours: [.otpGray, .otpGrayGradient],
+                startPoint: CGPoint(x: 0, y: 1),
+                endPoint: CGPoint(x: 1, y: 0))
+        }
+            
+//            field.layer.shadowColor = UIColor.accent.withAlphaComponent(0.5).cgColor
+//            field.layer.shadowOffset = CGSize(width: 0, height: 7)
+//            field.layer.shadowRadius = 64
+//            field.layer.shadowPath = UIBezierPath(roundedRect: field.bounds, cornerRadius: field.layer.cornerRadius).cgPath
+//            field.layer.shadowOpacity = 1
+
         
         textFields = fields
         
@@ -217,9 +227,6 @@ extension OTPViewController {
     
     private func setupContinueButton() {
         let button = UIButton()
-        
-        button.backgroundColor = .accent
-        
         button.titleLabel?.font = .continueButton
         button.titleLabel?.textColor = .white
         button.setTitle(OTPStrings.continueButton.rawValue, for: .normal)
@@ -227,14 +234,14 @@ extension OTPViewController {
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
         
-        stackView.addArrangedSubview(button)
+        view.addSubview(button)
         
         button.snp.makeConstraints { make in
             make.height.equalTo(58)
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-84)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
         }
         
         view.layoutIfNeeded()
@@ -244,10 +251,10 @@ extension OTPViewController {
     }
     
     private func setupBottomTitleWithResendButton() {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.spacing = 8
+        let bottomView = UIStackView()
+        bottomView.axis = .horizontal
+        bottomView.alignment = .center
+        bottomView.spacing = 8
         
         let bottomTitle = UILabel()
         
@@ -261,18 +268,18 @@ extension OTPViewController {
         bottomTitle.textColor = .subtitle
         bottomTitle.textAlignment = .center
         
-        stackView.addArrangedSubview(bottomTitle)
+        bottomView.addArrangedSubview(bottomTitle)
         
         let button = UIButton()
         button.setTitleColor(.accent, for: .normal)
         button.titleLabel?.font = .resendTitle
         button.setTitle(OTPStrings.resend.rawValue, for: .normal)
         
-        stackView.addArrangedSubview(button)
+        bottomView.addArrangedSubview(button)
         
-        view.addSubview(stackView)
+        view.addSubview(bottomView)
         
-        stackView.snp.makeConstraints { make in
+        bottomView.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-1)
@@ -288,6 +295,12 @@ extension OTPViewController {
     
     @objc func didChangeText(textField: UITextField) {
         
+        textField.superview?.layer.sublayers?.first?.removeFromSuperlayer()
+        textField.superview?.applyGradient(
+            colours: [.accent, .aceentGradient],
+            startPoint: CGPoint(x: 0, y: 1),
+            endPoint: CGPoint(x: 1, y: 0))
+        
         let index = textField.tag - 100
         let nextIndex = index + 1
         
@@ -299,11 +312,9 @@ extension OTPViewController {
         
         textFields[nextIndex].becomeFirstResponder()
     }
-}
-
-extension OTPViewController {
     
     @objc func didTapContinue() {
-        print("Did tap continue!")
+        let otpVC = OTPViewController()
+        navigationController?.pushViewController(otpVC, animated: true)
     }
 }

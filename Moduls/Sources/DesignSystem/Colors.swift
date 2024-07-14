@@ -7,7 +7,15 @@ public extension UIColor {
     }
     
     static var aceentGradient: UIColor {
-        UIColor(resource: .accent1)
+        UIColor(resource: .accentGradient)
+    }
+    
+    static var otpGray: UIColor {
+        UIColor(resource: .otpGray)
+    }
+    
+    static var otpGrayGradient: UIColor {
+        UIColor(resource: .otpGrayGradient)
     }
     
     static var background: UIColor {
