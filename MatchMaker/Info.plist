@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-261449575085-ios-d03579b9cdd5c379d7f424</string>
+			</array>
+		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>AvenirNextCyr-Medium.ttf</string>
+		<string>AvenirNextCyr-Bold.ttf</string>
+		<string>AvenirNextCyr-Regular.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -19,13 +38,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Poppins-Bold.ttf</string>
-		<string>Poppins-Regular.ttf</string>
-		<string>AvenirNextCyr-Medium.ttf</string>
-		<string>AvenirNextCyr-Bold.ttf</string>
-		<string>AvenirNextCyr-Regular.ttf</string>
-	</array>
 </dict>
 </plist>

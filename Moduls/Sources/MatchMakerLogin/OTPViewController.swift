@@ -9,6 +9,7 @@ enum OTPStrings: String {
     case bottomTitle = "Didn’t get a code?"
     case resend = "Resend"
 }
+
 //OTP - One Time Password
 public final class OTPViewController: UIViewController {
     
@@ -17,6 +18,8 @@ public final class OTPViewController: UIViewController {
     private weak var resendButton: UIButton!
     
     private var textFields: [UITextField] = []
+
+    var viewModel: OTPViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,16 +216,8 @@ extension OTPViewController {
                 startPoint: CGPoint(x: 0, y: 1),
                 endPoint: CGPoint(x: 1, y: 0))
         }
-            
-//            field.layer.shadowColor = UIColor.accent.withAlphaComponent(0.5).cgColor
-//            field.layer.shadowOffset = CGSize(width: 0, height: 7)
-//            field.layer.shadowRadius = 64
-//            field.layer.shadowPath = UIBezierPath(roundedRect: field.bounds, cornerRadius: field.layer.cornerRadius).cgPath
-//            field.layer.shadowOpacity = 1
-
         
         textFields = fields
-        
     }
     
     private func setupContinueButton() {
@@ -287,8 +282,6 @@ extension OTPViewController {
         
         self.resendButton = button
     }
-    
-    
 }
 
 extension OTPViewController {
@@ -312,9 +305,37 @@ extension OTPViewController {
         
         textFields[nextIndex].becomeFirstResponder()
     }
+}
+
+extension OTPViewController {
+    
+    private func setContinueButtonDisabled() {
+        continueButton.alpha = 0.5
+        continueButton.isEnabled = false
+    }
+    
+    private func setContinueButtonEnabled() {
+        continueButton.alpha = 1
+        continueButton.isEnabled = true
+    }
     
     @objc func didTapContinue() {
-        let otpVC = OTPViewController()
-        navigationController?.pushViewController(otpVC, animated: true)
+        view.endEditing(true)
+        self.setContinueButtonDisabled()
+        
+        let digits = textFields.map { $0.text ?? "" }
+        
+        Task { [weak self] in
+            do {
+                try await self?.viewModel.verifyOTP(with: digits)
+                
+                let vc = UIViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self?.navigationController?.setViewControllers([vc], animated: true)
+            } catch {
+                self?.showError(error.localizedDescription)
+                self?.setContinueButtonEnabled()
+            }
+        }
     }
 }

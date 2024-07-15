@@ -1,6 +1,6 @@
 import UIKit
 import MatchMakerLogin
-import DesignSystem
+import MatchMakerAuthentication
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -11,8 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let phoneNumberController = PhoneNumberViewController()
-        let navigationController = UINavigationController(rootViewController: phoneNumberController)
+        
+        let authService = AuthServiceLive()
+        let controller = PhoneNumberViewController()
+        controller.viewModel = PhoneNumberViewModel(authService: authService)
+        let navigationController = UINavigationController(rootViewController: controller)
         
         navigationController.styleMatchMaker()
         

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4432FA8B2C45AF4400EDF2F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */; };
+		4432FA8F2C45B16200EDF2F7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4432FA8E2C45B16200EDF2F7 /* FirebaseAuth */; };
+		4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */ = {isa = PBXBuildFile; productRef = 4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */; };
 		44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */; };
 		44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */; };
 		44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */; };
@@ -21,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +45,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */,
+				4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */,
+				4432FA8F2C45B16200EDF2F7 /* FirebaseAuth in Frameworks */,
 				44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +79,7 @@
 				44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */,
 				44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */,
 				44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */,
+				4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */,
 				44BCFA312C39CC7F00E1FE10 /* Info.plist */,
 			);
 			path = MatchMaker;
@@ -125,6 +132,8 @@
 			packageProductDependencies = (
 				44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */,
 				44C442162C42B55D008ED9F8 /* DesignSystem */,
+				4432FA8E2C45B16200EDF2F7 /* FirebaseAuth */,
+				4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */,
 			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
@@ -154,6 +163,9 @@
 				Base,
 			);
 			mainGroup = 44BCFA172C39CC7A00E1FE10;
+			packageReferences = (
+				4432FA8D2C45B16200EDF2F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 44BCFA212C39CC7A00E1FE10 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -169,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */,
+				4432FA8B2C45AF4400EDF2F7 /* GoogleService-Info.plist in Resources */,
 				44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */,
 				44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */,
 				44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */,
@@ -404,7 +417,27 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		4432FA8D2C45B16200EDF2F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.29.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		4432FA8E2C45B16200EDF2F7 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4432FA8D2C45B16200EDF2F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MatchMakerAuthentication;
+		};
 		44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MatchMakerLogin;
