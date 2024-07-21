@@ -19,6 +19,10 @@ public protocol AuthService {
 
 public class AuthServiceLive: AuthService  {
     
+    public var isAuthenticated: Bool {
+        Auth.auth().currentUser != nil
+    }
+    
     public init() { }
     
     public func requestOTP(forPhoneNumber phoneNumber: String) async throws {
