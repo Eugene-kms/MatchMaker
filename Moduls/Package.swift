@@ -20,7 +20,11 @@ let package = Package(
         
         .library(
             name: "MatchMakerLogin",
-            targets: ["MatchMakerLogin"])
+            targets: ["MatchMakerLogin"]),
+        
+        .library(
+            name: "MatchMakerSettings",
+            targets: ["MatchMakerSettings"])
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.29.0"),
@@ -53,6 +57,17 @@ let package = Package(
                 "MatchMakerCore",
                 "SnapKit",
                 "PhoneNumberKit"],
+            resources: [
+                .process("Resources")]
+        ),
+        
+        .target(
+            name: "MatchMakerSettings",
+            dependencies: [
+                "DesignSystem",
+                "MatchMakerCore",
+                "MatchMakerLogin",
+                "SnapKit"],
             resources: [
                 .process("Resources")]
         )

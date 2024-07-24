@@ -23,7 +23,9 @@ public class AuthServiceLive: AuthService  {
         Auth.auth().currentUser != nil
     }
     
-    public init() { }
+    public init() { 
+//        try? Auth.auth().signOut()
+    }
     
     public func requestOTP(forPhoneNumber phoneNumber: String) async throws {
         

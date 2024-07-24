@@ -1,5 +1,6 @@
 import UIKit
 import DesignSystem
+import MatchMakerSettings
 
 class TabBarController: UITabBarController {
     
@@ -11,10 +12,19 @@ class TabBarController: UITabBarController {
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     private func setupUI() {
         view.backgroundColor = .background
         tabBar.barTintColor = .background
         tabBar.tintColor = .accent
+        
+        tabBar.layer.cornerRadius = 15
+        tabBar.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        tabBar.layer.borderWidth = 0.7
     }
     
     private func setupViewControllers() {
@@ -27,13 +37,17 @@ class TabBarController: UITabBarController {
         let inbox = UIViewController()
         inbox.tabBarItem = Tab.inbox.tabBarItem
         
-        let settings = UIViewController()
+        let settings = SettingsViewController()
+        let settingsNavContr = UINavigationController(rootViewController: settings)
         settings.tabBarItem = Tab.settings.tabBarItem
+        settings.title = Tab.settings.tabBarItem.title
         
         viewControllers = [
             home,
             matches,
             inbox,
-            settings]
+            settingsNavContr]
+        
+        selectedViewController = settingsNavContr
     }
 }

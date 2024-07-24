@@ -36,4 +36,12 @@ public extension UIFont {
     static var resendTitle: UIFont {
         UIFont(name: Fonts.PoppinsBold.rawValue, size: 16)!
     }
+    
+    static var descriptionLbl: UIFont {
+        UIFont(name: Fonts.AvenirRegular.rawValue, size: 15)!
+    }
+    
+    static var settingsTitle: UIFont {
+        UIFont(name: Fonts.AvenirBold.rawValue, size: 25)!
+    }
 }

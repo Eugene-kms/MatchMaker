@@ -13,6 +13,7 @@
 		4442B6A52C4D51E10022C0CB /* MatchMakerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4442B6A42C4D51E10022C0CB /* MatchMakerCore */; };
 		4442B6AB2C4D94550022C0CB /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442B6AA2C4D94550022C0CB /* Tab.swift */; };
 		4442B6AD2C4D94740022C0CB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442B6AC2C4D94740022C0CB /* TabBarController.swift */; };
+		4442B6B32C4EFC890022C0CB /* MatchMakerSettings in Frameworks */ = {isa = PBXBuildFile; productRef = 4442B6B22C4EFC890022C0CB /* MatchMakerSettings */; };
 		44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */; };
 		44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */; };
 		44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 				4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */,
 				4442B6A52C4D51E10022C0CB /* MatchMakerCore in Frameworks */,
 				4432FA8F2C45B16200EDF2F7 /* FirebaseAuth in Frameworks */,
+				4442B6B32C4EFC890022C0CB /* MatchMakerSettings in Frameworks */,
 				44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +62,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4442B6B12C4EF5F80022C0CB /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				4442B6AA2C4D94550022C0CB /* Tab.swift */,
+				4442B6AC2C4D94740022C0CB /* TabBarController.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		44BCFA172C39CC7A00E1FE10 = {
 			isa = PBXGroup;
 			children = (
@@ -81,14 +92,13 @@
 		44BCFA222C39CC7A00E1FE10 /* MatchMaker */ = {
 			isa = PBXGroup;
 			children = (
+				4442B6B12C4EF5F80022C0CB /* Tab */,
 				44C441FE2C3DCD22008ED9F8 /* Resources */,
 				44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */,
 				44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */,
 				44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */,
 				4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */,
 				44BCFA312C39CC7F00E1FE10 /* Info.plist */,
-				4442B6AA2C4D94550022C0CB /* Tab.swift */,
-				4442B6AC2C4D94740022C0CB /* TabBarController.swift */,
 			);
 			path = MatchMaker;
 			sourceTree = "<group>";
@@ -143,6 +153,7 @@
 				4432FA8E2C45B16200EDF2F7 /* FirebaseAuth */,
 				4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */,
 				4442B6A42C4D51E10022C0CB /* MatchMakerCore */,
+				4442B6B22C4EFC890022C0CB /* MatchMakerSettings */,
 			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
@@ -452,6 +463,10 @@
 		4442B6A42C4D51E10022C0CB /* MatchMakerCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MatchMakerCore;
+		};
+		4442B6B22C4EFC890022C0CB /* MatchMakerSettings */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MatchMakerSettings;
 		};
 		44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */ = {
 			isa = XCSwiftPackageProductDependency;
