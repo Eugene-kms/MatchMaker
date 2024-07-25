@@ -40,16 +40,16 @@ extension SettingsViewController {
     }
     
     private func setupNavigationBar() {
-        setupNavigationTitle()
+        navigationItem.setMatchMakerTitle("Settings")
+        
         setupNavigationButton()
-    }
-    
-    private func setupNavigationTitle() {
-        let titleLable = UILabel()
-        titleLable.text = "Settings"
-        titleLable.font = .settingsTitle
-        titleLable.textColor = .text
-        navigationItem.titleView = titleLable
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: self,
+            action: nil
+        )
     }
     
     private func setupNavigationButton() {
@@ -65,7 +65,12 @@ extension SettingsViewController {
     }
     
     @objc private func rightBarButtonTapped() {
-        print("Edit Button Tapped!!!!!")
+        presentProfile()
+    }
+    
+    private func presentProfile() {
+        let controller = ProfileViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     private func setupTableView() {
@@ -137,5 +142,9 @@ extension SettingsViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         tableView.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - 108
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presentProfile()
     }
 }
