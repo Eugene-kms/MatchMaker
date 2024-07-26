@@ -70,6 +70,7 @@ extension SettingsViewController {
     
     private func presentProfile() {
         let controller = ProfileViewController()
+        controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -148,3 +149,4 @@ extension SettingsViewController: UITableViewDelegate {
         presentProfile()
     }
 }
+

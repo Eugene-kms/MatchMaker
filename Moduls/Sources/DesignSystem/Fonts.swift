@@ -21,6 +21,10 @@ public extension UIFont {
         UIFont(name: Fonts.AvenirMedium.rawValue, size: 18)!
     }
     
+    static var textField2: UIFont {
+        UIFont(name: Fonts.AvenirMedium.rawValue, size: 15)!
+    }
+    
     static var otp: UIFont {
         UIFont(name: Fonts.AvenirBold.rawValue, size: 23.66)!
     }
@@ -43,5 +47,9 @@ public extension UIFont {
     
     static var settingsTitle: UIFont {
         UIFont(name: Fonts.AvenirBold.rawValue, size: 25)!
+    }
+    
+    static var saveButton: UIFont {
+        UIFont(name: Fonts.AvenirBold.rawValue, size: 22)!
     }
 }

@@ -11,6 +11,7 @@ public extension UINavigationController {
 
         appearence.backIndicatorImage = imgBack
         appearence.backIndicatorTransitionMaskImage = imgBack
+        appearence.barTintColor = .background
         
         appearence.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }

@@ -2,15 +2,15 @@ import UIKit
 import SnapKit
 import DesignSystem
 
+enum ProfileStrings: String {
+    case title = "Profile"
+    case save = "Save"
+}
+
 public final class ProfileViewController: UIViewController {
     
-    enum Row: Int, CaseIterable {
-        case profilePicture
-        case name
-        case location
-    }
-    
     private weak var tableView: UITableView!
+    private weak var saveButtonContainer: UIView!
     
     let viewModel = ProfileViewModel()
     
@@ -19,8 +19,10 @@ public final class ProfileViewController: UIViewController {
         
         setupUI()
         configureTableView()
+        setupHideKeyboardGesture()
+        subscribeToKeyboard()
         
-        navigationItem.setMatchMakerTitle("Profile")
+        navigationItem.setMatchMakerTitle(ProfileStrings.title.rawValue)
     }
     
     private func configureTableView() {
@@ -28,6 +30,7 @@ public final class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ProfilePictureCell.self, forCellReuseIdentifier: ProfilePictureCell.identifier)
+        tableView.register(ProfileTextFieldCell.self, forCellReuseIdentifier: ProfileTextFieldCell.identifier)
     }
 }
 
@@ -37,6 +40,7 @@ extension ProfileViewController {
         view.backgroundColor = .background
         
         setupTableView()
+        setupSaveButton()
     }
     
     private func setupTableView() {
@@ -49,18 +53,69 @@ extension ProfileViewController {
         }
         
         self.tableView = tableView
-        tableView.contentInset = UIEdgeInsets(top: 27, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 27, left: 0, bottom: 120, right: 0)
+    }
+    
+    private func setupSaveButton() {
+        let container = UIView()
+        
+        let lable = UILabel()
+        lable.font = .saveButton
+        lable.textColor = .pinkShadow
+        lable.text = ProfileStrings.save.rawValue
+        container.addSubview(lable)
+        
+        lable.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-3)
+        }
+        
+        let button = UIButton()
+        button.setImage(UIImage(resource: .arrow), for: .normal)
+        
+        button.layer.figmaShadow(
+            offset: CGPoint(x: 0, y: 10),
+            blur: 55,
+            color: .pinkShadow,
+            opacity: 0.55
+        )
+        
+        container.addSubview(button)
+        
+        button.snp.makeConstraints { make in
+            make.left.equalTo(lable.snp.right).offset(16)
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        view.addSubview(container)
+        
+        container.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.right.equalToSuperview().offset(-35)
+        }
+        
+        self.saveButtonContainer = container
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapSaveButton))
+        container.addGestureRecognizer(tap)
+    }
+    
+    @objc private func didTapSaveButton() {
+        viewModel.save()
     }
 }
 
 extension ProfileViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Row.profilePicture.rawValue + 1
+        viewModel.rows.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
+        
+        let row = viewModel.rows[indexPath.row]
         
         switch row {
             
@@ -73,9 +128,13 @@ extension ProfileViewController: UITableViewDataSource {
             
             return cell
             
-        case .name, .location:
-            fatalError()
+        case .textField(let type):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTextFieldCell.identifier, for: indexPath) as? ProfileTextFieldCell else { return UITableViewCell() }
             
+            cell.configure(with: viewModel.modelForTextFieldRow(type))
+            cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+            
+            return cell
         }
     }
 }
@@ -83,7 +142,8 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row == Row.profilePicture.rawValue else { return }
+        guard
+            case .profilePicture = viewModel.rows[indexPath.row] else { return }
         
         didTapProfilePicture()
     }
@@ -121,7 +181,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
-        imagePicker.allowsEditing = true
         present(imagePicker, animated: true)
     }
     
@@ -130,13 +189,80 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.editedImage] as? UIImage {
+        if let selectedImage = info[.originalImage] as? UIImage {
             viewModel.selectedImage = selectedImage
             
             tableView.reloadRows(
-                at: [IndexPath(row: Row.profilePicture.rawValue, section: 0)],
+                at: [IndexPath(row: 0, section: 0)],
                 with: .automatic)
         }
         picker.dismiss(animated: true)
+    }
+}
+
+extension ProfileViewController: UITextFieldDelegate {
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        guard
+            let indexPath = tableView.indexPathForRow(at: textField.convert(textField.bounds.origin, to: tableView)) else { return }
+        
+        let row = viewModel.rows[indexPath.row]
+        
+        guard case let .textField(type) = row else { return }
+        
+        switch type {
+        case .name:
+            viewModel.fullName = textField.text ?? ""
+        case .location:
+            viewModel.location = textField.text ?? ""
+        }
+        
+        let cell = tableView.cellForRow(at: indexPath) as? ProfileTextFieldCell
+        cell?.configure(with: viewModel.modelForTextFieldRow(type))
+    }
+}
+
+extension ProfileViewController {
+    private func setupHideKeyboardGesture() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        
+        tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+        
+    }
+    
+    private func subscribeToKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo,
+              let endFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        
+        let isKeyboardHidden = endFrame.origin.y >= UIScreen.main.bounds.size.height
+        
+        let bottonMargin = isKeyboardHidden ? 0 : -endFrame.height - 16
+        
+        tableView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().offset(bottonMargin)
+        }
+        
+        saveButtonContainer.snp.updateConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(bottonMargin - 20 + (isKeyboardHidden ? 0 : view.safeAreaInsets.bottom))
+        }
+        
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
+        }
     }
 }

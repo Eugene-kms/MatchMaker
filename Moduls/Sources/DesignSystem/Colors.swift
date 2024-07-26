@@ -37,4 +37,12 @@ public extension UIColor {
     static var descriptionLblColor: UIColor {
         UIColor(resource: .descriptionLbl)
     }
+    
+    static var pinkShadow: UIColor {
+        UIColor(resource: .pinkShadow)
+    }
+    
+    static var grayShadow: UIColor {
+        UIColor(resource: .grayShadow)
+    }
 }

@@ -28,6 +28,8 @@ extension ProfilePictureCell {
     
     private func setupUI() {
         selectionStyle = .none
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
         setupImageView()
     }
