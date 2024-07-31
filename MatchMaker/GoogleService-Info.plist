@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:261449575085:ios:d03579b9cdd5c379d7f424</string>
+	<key>DATABASE_URL</key>
+	<string>https://matchmaker-43d93-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

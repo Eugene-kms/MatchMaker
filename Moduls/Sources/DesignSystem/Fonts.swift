@@ -41,7 +41,7 @@ public extension UIFont {
         UIFont(name: Fonts.PoppinsBold.rawValue, size: 16)!
     }
     
-    static var descriptionLbl: UIFont {
+    static var locationLbl: UIFont {
         UIFont(name: Fonts.AvenirRegular.rawValue, size: 15)!
     }
     

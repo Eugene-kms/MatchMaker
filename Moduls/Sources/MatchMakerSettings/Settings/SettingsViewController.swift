@@ -1,5 +1,4 @@
 import UIKit
-import MatchMakerLogin
 import DesignSystem
 import MatchMakerCore
 import SnapKit
@@ -10,7 +9,7 @@ public final class SettingsViewController: UIViewController {
     
     private var footerView: UIView!
     
-    let viewModel = SettingsViewModel()
+    public var viewModel: SettingsViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +19,15 @@ public final class SettingsViewController: UIViewController {
         
         view.layoutIfNeeded()
         styleFooterButton(in: footerView)
+        
+        viewModel.didUpdateHeader = { [weak self] in
+            self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        }
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchUserProfile()
     }
     
     private func configureTableView() {
@@ -70,6 +78,10 @@ extension SettingsViewController {
     
     private func presentProfile() {
         let controller = ProfileViewController()
+        controller.viewModel = ProfileViewModel(
+            userProfileRepository: viewModel.userProfileRepository,
+            profilePictureRepository: viewModel.profilePictureRepository
+        )
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -108,7 +120,20 @@ extension SettingsViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        
+        let alert = UIAlertController(title: "Logout", message: "Do you really want to logout?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
+            self?.didConfirmLogout()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    private func didConfirmLogout() {
+        do {
+            try viewModel.logout()
+        } catch {
+            showError(error.localizedDescription)
+        }
     }
     
     private func styleFooterButton(in footerView: UIView) {

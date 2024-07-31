@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4432FA8B2C45AF4400EDF2F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */; };
 		4432FA8F2C45B16200EDF2F7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4432FA8E2C45B16200EDF2F7 /* FirebaseAuth */; };
 		4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */ = {isa = PBXBuildFile; productRef = 4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */; };
 		4442B6A52C4D51E10022C0CB /* MatchMakerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4442B6A42C4D51E10022C0CB /* MatchMakerCore */; };
@@ -25,10 +24,10 @@
 		44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */; };
 		44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 44C442162C42B55D008ED9F8 /* DesignSystem */; };
 		44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */; };
+		44FEC3FE2C582831002B9785 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44FEC3FD2C582831002B9785 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4442B6AA2C4D94550022C0CB /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		4442B6AC2C4D94740022C0CB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +42,7 @@
 		44C442102C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Bold.ttf"; sourceTree = "<group>"; };
 		44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Regular.ttf"; sourceTree = "<group>"; };
 		44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		44FEC3FD2C582831002B9785 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 				44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */,
 				44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */,
 				44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */,
-				4432FA8A2C45AF4400EDF2F7 /* GoogleService-Info.plist */,
 				44BCFA312C39CC7F00E1FE10 /* Info.plist */,
+				44FEC3FD2C582831002B9785 /* GoogleService-Info.plist */,
 			);
 			path = MatchMaker;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44C442132C401161008ED9F8 /* AvenirNextCyr-Regular.ttf in Resources */,
-				4432FA8B2C45AF4400EDF2F7 /* GoogleService-Info.plist in Resources */,
+				44FEC3FE2C582831002B9785 /* GoogleService-Info.plist in Resources */,
 				44C442112C400F26008ED9F8 /* AvenirNextCyr-Bold.ttf in Resources */,
 				44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */,
 				44C4420F2C400EB3008ED9F8 /* AvenirNextCyr-Medium.ttf in Resources */,

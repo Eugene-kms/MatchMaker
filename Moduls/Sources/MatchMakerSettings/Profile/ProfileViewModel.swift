@@ -14,10 +14,23 @@ public final class ProfileViewModel {
     var selectedImage: UIImage?
     var fullName: String = ""
     var location: String = ""
+    var profilePictureURL: URL?
     
     var rows: [Row]
     
-    init() {
+    private let userProfileRepository: UserProfileRepository
+    private let profilePictureRepository: ProfilePictureRepository
+    
+    init(userProfileRepository: UserProfileRepository, profilePictureRepository: ProfilePictureRepository) {
+        self.userProfileRepository = userProfileRepository
+        self.profilePictureRepository = profilePictureRepository
+        
+        if let profile = userProfileRepository.profile {
+            fullName = profile.fullName
+            location = profile.location
+            profilePictureURL = profile.profilePictureURL
+        }
+        
         rows = [
             .profilePicture,
             .textField(.name),
@@ -25,8 +38,14 @@ public final class ProfileViewModel {
         ]
     }
     
-    func save() {
+    func save() async throws {
+        let profile = UserProfile(fullName: fullName, location: location, profilePictureURL: nil)
+        try userProfileRepository.saveUserProfile(profile)
         
+        guard let selectedImage else { return }
+        Task {
+            try await profilePictureRepository.upload(selectedImage)
+        }
     }
     
     func modelForTextFieldRow(_ type: TextFieldType) -> ProfileTextFieldCell.Model {

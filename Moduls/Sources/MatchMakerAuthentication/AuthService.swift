@@ -13,19 +13,25 @@ public struct User {
 }
 
 public protocol AuthService {
+    var user: User? { get }
+    
     func requestOTP(forPhoneNumber phoneNumber: String) async throws
     func authenticate(withOTP otp: String) async throws -> User
+    func logout() throws
 }
 
 public class AuthServiceLive: AuthService  {
+    
+    public var user: User? {
+        guard let currentUser = Auth.auth().currentUser else { return nil }
+        return User(uid: currentUser.uid)
+    }
     
     public var isAuthenticated: Bool {
         Auth.auth().currentUser != nil
     }
     
-    public init() { 
-//        try? Auth.auth().signOut()
-    }
+    public init() {}
     
     public func requestOTP(forPhoneNumber phoneNumber: String) async throws {
         
@@ -46,5 +52,9 @@ public class AuthServiceLive: AuthService  {
         let result = try await Auth.auth().signIn(with: credential)
         
         return User(uid: result.user.uid)
+    }
+    
+    public func logout() throws {
+        try Auth.auth().signOut()
     }
 }

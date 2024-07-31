@@ -34,7 +34,7 @@ public extension UIColor {
         UIColor(resource: .text)
     }
     
-    static var descriptionLblColor: UIColor {
+    static var locationLblColor: UIColor {
         UIColor(resource: .descriptionLbl)
     }
     

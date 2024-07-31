@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import DesignSystem
+import MatchMakerCore
 
 enum ProfileStrings: String {
     case title = "Profile"
@@ -12,7 +13,7 @@ public final class ProfileViewController: UIViewController {
     private weak var tableView: UITableView!
     private weak var saveButtonContainer: UIView!
     
-    let viewModel = ProfileViewModel()
+    var viewModel: ProfileViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +104,14 @@ extension ProfileViewController {
     }
     
     @objc private func didTapSaveButton() {
-        viewModel.save()
+        Task { [weak self] in
+            do {
+                try await self?.viewModel.save()
+                self?.navigationController?.popViewController(animated: true)
+            } catch {
+                self?.showError(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -124,6 +132,10 @@ extension ProfileViewController: UITableViewDataSource {
             
             if let selectedImage = viewModel.selectedImage {
                 cell.configure(with: selectedImage)
+            }
+            
+            if let url = viewModel.profilePictureURL {
+                cell.configure(with: url)
             }
             
             return cell
