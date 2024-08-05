@@ -2,25 +2,12 @@ import Foundation
 import FirebaseDatabase
 import MatchMakerAuthentication
 
-public enum UserProfileRepositoryError: Error {
-    case notAuthenticated
-}
-
-extension UserProfileRepositoryError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .notAuthenticated:
-            return "User is not authenticated!"
-        }
-    }
-}
-
 public protocol UserProfileRepository {
     var profile: UserProfile? { get }
     
     func saveUserProfile(_ userProfile: UserProfile) throws
     func fetchUserProfile() async throws -> UserProfile
-    func saveProfilePictureUrl(_ url: URL) throws
+    func saveProfilePictureURL(_ url: URL) throws
 }
 
 public class UserProfileRepositoryLive: UserProfileRepository {
@@ -55,15 +42,14 @@ public class UserProfileRepositoryLive: UserProfileRepository {
         let profile = try snapshot.data(as: UserProfile.self)
         
         self.profile = profile
-        
         return profile
     }
     
-    public func saveProfilePictureUrl(_ url: URL) throws {
+    public func saveProfilePictureURL(_ url: URL) throws {
         guard let user = authService.user else {
             throw UserProfileRepositoryError.notAuthenticated
         }
         
-        reference.child("users").child(user.uid).updateChildValues(["profilePictureUrl": url.absoluteString])
+        reference.child("users").child(user.uid).updateChildValues(["profilePictureURL": url.absoluteString])
     }
 }

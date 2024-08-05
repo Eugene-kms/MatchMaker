@@ -13,7 +13,7 @@ public final class ProfileViewController: UIViewController {
     private weak var tableView: UITableView!
     private weak var saveButtonContainer: UIView!
     
-    var viewModel: ProfileViewModel!
+    var profileViewModel: ProfileViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,9 +104,11 @@ extension ProfileViewController {
     }
     
     @objc private func didTapSaveButton() {
+        
         Task { [weak self] in
             do {
-                try await self?.viewModel.save()
+                try await self?.profileViewModel.save()
+                
                 self?.navigationController?.popViewController(animated: true)
             } catch {
                 self?.showError(error.localizedDescription)
@@ -118,24 +120,26 @@ extension ProfileViewController {
 extension ProfileViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.rows.count
+        profileViewModel.rows.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let row = viewModel.rows[indexPath.row]
+        let row = profileViewModel.rows[indexPath.row]
         
         switch row {
             
         case .profilePicture:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePictureCell.identifier, for: indexPath) as? ProfilePictureCell else { return UITableViewCell() }
             
-            if let selectedImage = viewModel.selectedImage {
+            if let selectedImage = profileViewModel.selectedImage {
                 cell.configure(with: selectedImage)
+            } else if let url = profileViewModel.profilePictureURL {
+                cell.configure(with: url)
             }
             
-            if let url = viewModel.profilePictureURL {
-                cell.configure(with: url)
+            cell.didTap = { [weak self] in
+                self?.didTapProfilePicture()
             }
             
             return cell
@@ -143,7 +147,7 @@ extension ProfileViewController: UITableViewDataSource {
         case .textField(let type):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTextFieldCell.identifier, for: indexPath) as? ProfileTextFieldCell else { return UITableViewCell() }
             
-            cell.configure(with: viewModel.modelForTextFieldRow(type))
+            cell.configure(with: profileViewModel.modelForTextFieldRow(type))
             cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
             return cell
@@ -155,7 +159,7 @@ extension ProfileViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard
-            case .profilePicture = viewModel.rows[indexPath.row] else { return }
+            case .profilePicture = profileViewModel.rows[indexPath.row] else { return }
         
         didTapProfilePicture()
     }
@@ -173,7 +177,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             title: "Gallery",
             style: .default,
             handler: { [weak self] _ in
-            self?.showImagePicker(with: .photoLibrary)}))
+                self?.showImagePicker(with: .photoLibrary)}))
         
         alert.addAction(UIAlertAction(
             title: "Camera",
@@ -202,7 +206,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
-            viewModel.selectedImage = selectedImage
+            profileViewModel.selectedImage = selectedImage
             
             tableView.reloadRows(
                 at: [IndexPath(row: 0, section: 0)],
@@ -218,21 +222,23 @@ extension ProfileViewController: UITextFieldDelegate {
         guard
             let indexPath = tableView.indexPathForRow(at: textField.convert(textField.bounds.origin, to: tableView)) else { return }
         
-        let row = viewModel.rows[indexPath.row]
+        let row = profileViewModel.rows[indexPath.row]
         
         guard case let .textField(type) = row else { return }
         
         switch type {
         case .name:
-            viewModel.fullName = textField.text ?? ""
+            profileViewModel.fullName = textField.text ?? ""
         case .location:
-            viewModel.location = textField.text ?? ""
+            profileViewModel.location = textField.text ?? ""
         }
         
         let cell = tableView.cellForRow(at: indexPath) as? ProfileTextFieldCell
-        cell?.configure(with: viewModel.modelForTextFieldRow(type))
+        cell?.configure(with: profileViewModel.modelForTextFieldRow(type))
     }
 }
+
+//MARK: setupKeyboard
 
 extension ProfileViewController {
     private func setupHideKeyboardGesture() {

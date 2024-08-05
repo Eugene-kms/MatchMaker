@@ -4,24 +4,12 @@ import PhoneNumberKit
 import DesignSystem
 import MatchMakerAuthentication
 import MatchMakerCore
+import Swinject
 
 enum PhoneNumberStrings: String {
     case title = "Can I get those digits?"
     case subtitle = "Enter your phone number below to create your free account."
     case continueButton = "Continue"
-}
-
-public final class PhoneNumberViewModel {
-    
-    let authService: AuthService
-    
-    public init(authService: AuthService) {
-        self.authService = authService
-    }
-    
-    public func requestOTP(with phoneNumber: String) async throws {
-        try await authService.requestOTP(forPhoneNumber: phoneNumber)
-    }
 }
 
 public class PhoneNumberViewController: UIViewController {
@@ -31,6 +19,17 @@ public class PhoneNumberViewController: UIViewController {
     private weak var continueButton: UIButton!
     
     public var viewModel: PhoneNumberViewModel!
+    
+    private let container: Container
+    
+    public init(container: Container) {
+        self.container = container
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,8 +90,6 @@ extension PhoneNumberViewController {
         let animationCurveRaw = animationCurveRawNumber?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
         let animationCurve = UIView.AnimationOptions(rawValue: animationCurveRaw)
         
-//        let isKeyboardHidden = endFrame.origin.y >= UIScreen.main.bounds.size.height
-//        isKeyboardHidden ? -40 : 
         let topMargin = -endFrame.height + view.safeAreaInsets.bottom - 16
         
         continueButton.snp.updateConstraints { make in
@@ -280,7 +277,7 @@ extension PhoneNumberViewController {
     }
     
     private func presentOTP() {
-        let viewController = OTPViewController()
+        let viewController = OTPViewController(container: container)
         viewController.viewModel = OTPViewModel(authService: viewModel.authService)
         
         navigationController?.pushViewController(viewController, animated: true)

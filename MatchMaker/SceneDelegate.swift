@@ -2,18 +2,22 @@ import UIKit
 import MatchMakerAuthentication
 import MatchMakerCore
 import MatchMakerLogin
+import Swinject
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var container: Container!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        setupContainer()
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
         UINavigationController.styleMatchMaker()
+        
         let navigationController = UINavigationController(rootViewController: setupInitialViewController())
         
         window?.rootViewController = navigationController
@@ -34,14 +38,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func setupTabBar() -> UIViewController {
-        TabBarController()
+        TabBarController(container: container)
     }
     
     private func setupPhoneNumberController() -> UIViewController {
-        let authService = AuthServiceLive()
-        let viewModel = PhoneNumberViewModel(authService: authService)
+        let viewModel = PhoneNumberViewModel(container: container)
         
-        let phoneNumberController = PhoneNumberViewController()
+        let phoneNumberController = PhoneNumberViewController(container: container)
         phoneNumberController.viewModel = viewModel
         return phoneNumberController
     }
@@ -96,5 +99,12 @@ extension SceneDelegate {
     @objc private func didLogout() {
         let navigationController = window?.rootViewController as? UINavigationController
         navigationController?.setViewControllers([setupPhoneNumberController()], animated: true)
+    }
+}
+
+extension SceneDelegate {
+    private func setupContainer() {
+        container = Container()
+        AppAssembly(container: container).asemble()
     }
 }

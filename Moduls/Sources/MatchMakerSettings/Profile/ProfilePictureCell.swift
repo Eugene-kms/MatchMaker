@@ -6,6 +6,8 @@ class ProfilePictureCell: UITableViewCell {
     
     private weak var profileImageView: UIImageView!
     
+    var didTap: (() -> ())?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
@@ -21,7 +23,7 @@ class ProfilePictureCell: UITableViewCell {
     }
     
     func configure(with url: URL) {
-        profileImageView?.sd_setImage(with: url)
+        profileImageView.sd_setImage(with: url)
     }
     
     private func commonInit() {
@@ -45,6 +47,7 @@ extension ProfilePictureCell {
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
+        
         contentView.addSubview(imageView)
         
         imageView.snp.makeConstraints { make in

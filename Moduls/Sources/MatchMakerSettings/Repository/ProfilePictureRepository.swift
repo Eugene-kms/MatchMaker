@@ -44,7 +44,7 @@ public class ProfilePictureRepositoryLive: ProfilePictureRepository {
         
         let url = try await userReference.downloadURL()
         
-        try userProfileRepository.saveProfilePictureUrl(url)
+        try userProfileRepository.saveProfilePictureURL(url)
     }
     
     private func uploadToFirebase(_ data: Data, reference: StorageReference) async throws -> StorageMetadata {
