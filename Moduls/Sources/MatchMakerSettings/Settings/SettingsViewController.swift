@@ -7,6 +7,8 @@ public final class SettingsViewController: UIViewController {
     
     private weak var tableView: UITableView!
     
+    private weak var settingsHeaderCell: SettingsHeaderCell!
+    
     private var footerView: UIView!
     
     public var viewModel: SettingsViewModel!
@@ -21,13 +23,15 @@ public final class SettingsViewController: UIViewController {
         styleFooterButton(in: footerView)
         
         viewModel.didUpdateHeader = { [weak self] in
-            self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            self?.tableView.reloadData()
         }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchUserProfile()
+        Task {
+            await viewModel.fetchUserProfile()
+        }
     }
     
     private func configureTableView() {
@@ -78,10 +82,9 @@ extension SettingsViewController {
     
     private func presentProfile() {
         let controller = ProfileViewController()
-        controller.viewModel = ProfileViewModel(
-            userProfileRepository: viewModel.userProfileRepository,
-            profilePictureRepository: viewModel.profilePictureRepository
-        )
+        controller.profileViewModel = ProfileViewModel(
+            container: viewModel.container)
+        
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
     }

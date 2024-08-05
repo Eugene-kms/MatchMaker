@@ -2,6 +2,7 @@ import UIKit
 import MatchMakerSettings
 import DesignSystem
 import SnapKit
+import Swinject
 
 enum OTPStrings: String {
     case title = "Enter the 6 digit code."
@@ -21,6 +22,17 @@ public final class OTPViewController: UIViewController {
     private var textFields: [UITextField] = []
 
     var viewModel: OTPViewModel!
+    
+    private let container: Container
+    
+    init(container: Container) {
+        self.container = container
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -325,6 +337,8 @@ extension OTPViewController {
         let digits = textFields.map { $0.text ?? "" }
         
         let settingsVC = SettingsViewController()
+        settingsVC.viewModel = SettingsViewModel(container: container)
+
         settingsVC.modalPresentationStyle = .overCurrentContext
         self.present(settingsVC, animated: true)
         

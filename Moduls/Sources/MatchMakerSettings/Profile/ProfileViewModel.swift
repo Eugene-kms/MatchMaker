@@ -1,4 +1,6 @@
 import UIKit
+import MatchMakerAuthentication
+import Swinject
 
 enum TextFieldType{
     case name
@@ -14,38 +16,45 @@ public final class ProfileViewModel {
     var selectedImage: UIImage?
     var fullName: String = ""
     var location: String = ""
-    var profilePictureURL: URL?
+    var profilePictureURL: URL? = nil
     
     var rows: [Row]
     
-    private let userProfileRepository: UserProfileRepository
-    private let profilePictureRepository: ProfilePictureRepository
+    let container: Container
     
-    init(userProfileRepository: UserProfileRepository, profilePictureRepository: ProfilePictureRepository) {
-        self.userProfileRepository = userProfileRepository
-        self.profilePictureRepository = profilePictureRepository
-        
-        if let profile = userProfileRepository.profile {
-            fullName = profile.fullName
-            location = profile.location
-            profilePictureURL = profile.profilePictureURL
-        }
+    var authService: AuthService { container.resolve(AuthService.self)! }
+    var userProfileRepository: UserProfileRepository { container.resolve(UserProfileRepository.self)! }
+    var profilePictureRepository: ProfilePictureRepository { container.resolve(ProfilePictureRepository.self)! }
+    
+    init(container: Container) {
+        self.container = container
         
         rows = [
             .profilePicture,
             .textField(.name),
             .textField(.location)
         ]
+        
+        if let profile = userProfileRepository.profile {
+            fullName = profile.fullName
+            location = profile.location
+            profilePictureURL = profile.profilePictureURL
+        }
     }
     
     func save() async throws {
-        let profile = UserProfile(fullName: fullName, location: location, profilePictureURL: nil)
+        
+        let profile = UserProfile(
+            fullName: fullName,
+            location: location,
+            profilePictureURL: profilePictureURL
+        )
+        
         try userProfileRepository.saveUserProfile(profile)
         
         guard let selectedImage else { return }
-        Task {
-            try await profilePictureRepository.upload(selectedImage)
-        }
+        
+        try await profilePictureRepository.upload(selectedImage)
     }
     
     func modelForTextFieldRow(_ type: TextFieldType) -> ProfileTextFieldCell.Model {

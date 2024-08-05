@@ -25,6 +25,9 @@
 		44C442172C42B55D008ED9F8 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 44C442162C42B55D008ED9F8 /* DesignSystem */; };
 		44C442192C42D2F7008ED9F8 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */; };
 		44FEC3FE2C582831002B9785 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44FEC3FD2C582831002B9785 /* GoogleService-Info.plist */; };
+		44FEC40C2C5A995C002B9785 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 44FEC40B2C5A995C002B9785 /* Swinject */; };
+		44FEC4102C5AA038002B9785 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEC40F2C5AA038002B9785 /* AppAssembly.swift */; };
+		44FEC4122C5AA864002B9785 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEC4112C5AA864002B9785 /* DIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,8 @@
 		44C442122C401161008ED9F8 /* AvenirNextCyr-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Regular.ttf"; sourceTree = "<group>"; };
 		44C442182C42D2F7008ED9F8 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		44FEC3FD2C582831002B9785 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44FEC40F2C5AA038002B9785 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
+		44FEC4112C5AA864002B9785 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			files = (
 				44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */,
 				4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */,
+				44FEC40C2C5A995C002B9785 /* Swinject in Frameworks */,
 				4442B6A52C4D51E10022C0CB /* MatchMakerCore in Frameworks */,
 				4432FA8F2C45B16200EDF2F7 /* FirebaseAuth in Frameworks */,
 				4442B6B32C4EFC890022C0CB /* MatchMakerSettings in Frameworks */,
@@ -95,6 +101,8 @@
 				4442B6B12C4EF5F80022C0CB /* Tab */,
 				44C441FE2C3DCD22008ED9F8 /* Resources */,
 				44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */,
+				44FEC40F2C5AA038002B9785 /* AppAssembly.swift */,
+				44FEC4112C5AA864002B9785 /* DIContainer.swift */,
 				44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */,
 				44BCFA2E2C39CC7F00E1FE10 /* LaunchScreen.storyboard */,
 				44BCFA312C39CC7F00E1FE10 /* Info.plist */,
@@ -154,6 +162,7 @@
 				4432FA902C45BD9100EDF2F7 /* MatchMakerAuthentication */,
 				4442B6A42C4D51E10022C0CB /* MatchMakerCore */,
 				4442B6B22C4EFC890022C0CB /* MatchMakerSettings */,
+				44FEC40B2C5A995C002B9785 /* Swinject */,
 			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
@@ -185,6 +194,7 @@
 			mainGroup = 44BCFA172C39CC7A00E1FE10;
 			packageReferences = (
 				4432FA8D2C45B16200EDF2F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				44FEC40A2C5A995C002B9785 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = 44BCFA212C39CC7A00E1FE10 /* Products */;
 			projectDirPath = "";
@@ -220,7 +230,9 @@
 			files = (
 				4442B6AB2C4D94550022C0CB /* Tab.swift in Sources */,
 				4442B6AD2C4D94740022C0CB /* TabBarController.swift in Sources */,
+				44FEC4102C5AA038002B9785 /* AppAssembly.swift in Sources */,
 				44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */,
+				44FEC4122C5AA864002B9785 /* DIContainer.swift in Sources */,
 				44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +460,14 @@
 				minimumVersion = 10.29.0;
 			};
 		};
+		44FEC40A2C5A995C002B9785 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -475,6 +495,11 @@
 		44C442162C42B55D008ED9F8 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
+		};
+		44FEC40B2C5A995C002B9785 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44FEC40A2C5A995C002B9785 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,5 +1,6 @@
 import UIKit
 import MatchMakerAuthentication
+import Swinject
 
 struct Header {
     var imageURL: URL?
@@ -13,38 +14,35 @@ public final class SettingsViewModel {
     
     var didUpdateHeader: (() -> ())?
     
-    let authService: AuthService
-    let userProfileRepository: UserProfileRepository
-    let profilePictureRepository: ProfilePictureRepository
+    let container: Container
     
-    public init(authService: AuthService, userProfileRepository: UserProfileRepository, profilePictureRepository: ProfilePictureRepository) {
-        self.authService = authService
-        self.userProfileRepository = userProfileRepository
-        self.profilePictureRepository = profilePictureRepository
+    var authService: AuthService { container.resolve(AuthService.self)! }
+    var userProfileRepository: UserProfileRepository { container.resolve(UserProfileRepository.self)! }
+    
+    public init(container: Container) {
+        self.container = container
         
         self.header = Header(
             imageURL: nil,
             name: "Setup Your Name",
             location: "No Location")
-    }
+    } 
     
     func logout() throws {
         try authService.logout()
         NotificationCenter.default.post(.didLogout)
     }
     
-    func fetchUserProfile() {
+    func fetchUserProfile() async {
         
-        Task { [weak self] in
-            do {
-                guard let profile = try await self?.userProfileRepository.fetchUserProfile() else { return }
-                
-                await MainActor.run { [weak self] in
-                    self?.updateHeader(with: profile)
-                }
-            } catch {
-                print(error)
+        do {
+            let profile = try await self.userProfileRepository.fetchUserProfile()
+            
+            await MainActor.run { [weak self] in
+                self?.updateHeader(with: profile)
             }
+        } catch {
+            print(error)
         }
     }
     

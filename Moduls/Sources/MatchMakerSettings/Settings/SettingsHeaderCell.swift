@@ -24,6 +24,7 @@ class SettingsHeaderCell: UITableViewCell {
         if let url = header.imageURL {
             profileImageView.sd_setImage(with: url)
         }
+        
         nameLable.text = header.name
         locationLable.text = header.location
     }
