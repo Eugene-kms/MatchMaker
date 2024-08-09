@@ -108,8 +108,6 @@ extension ProfileViewController {
         Task { [weak self] in
             do {
                 try await self?.profileViewModel.save()
-                
-                self?.navigationController?.popViewController(animated: true)
             } catch {
                 self?.showError(error.localizedDescription)
             }

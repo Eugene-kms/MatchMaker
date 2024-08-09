@@ -1,5 +1,6 @@
 import MatchMakerAuthentication
 import Foundation
+import Swinject
 
 enum OTPViewModelError: Error {
     case otpNoValid
@@ -8,9 +9,11 @@ enum OTPViewModelError: Error {
 public final class OTPViewModel {
     
     private var authService: AuthService
+    private let container: Container
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(container: Container) {
+        self.container = container
+        self.authService = container.resolve(AuthService.self)!
     }
     
     func verifyOTP(with digits: [String]) async throws {
@@ -22,6 +25,10 @@ public final class OTPViewModel {
         
         let user = try await authService.authenticate(withOTP: otp)
         print(user.uid)
+        
+        await MainActor.run {
+            NotificationCenter.default.post(.didLoginSuccessfully)
+        }
     }
     
     private func validate(digits: [String]) -> Bool {
