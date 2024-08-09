@@ -14,13 +14,15 @@ public final class SettingsViewModel {
     
     var didUpdateHeader: (() -> ())?
     
-    let container: Container
+    private let container: Container
+    private let coordinator: SettingsCoordinator
     
     var authService: AuthService { container.resolve(AuthService.self)! }
     var userProfileRepository: UserProfileRepository { container.resolve(UserProfileRepository.self)! }
     
-    public init(container: Container) {
+    public init(container: Container, coordinator: SettingsCoordinator) {
         self.container = container
+        self.coordinator = coordinator
         
         self.header = Header(
             imageURL: nil,
@@ -31,6 +33,10 @@ public final class SettingsViewModel {
     func logout() throws {
         try authService.logout()
         NotificationCenter.default.post(.didLogout)
+    }
+    
+    func presentProfileEdit() {
+        coordinator.presentProfileEdit()
     }
     
     func fetchUserProfile() async {

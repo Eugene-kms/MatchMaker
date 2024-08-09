@@ -77,16 +77,7 @@ extension SettingsViewController {
     }
     
     @objc private func rightBarButtonTapped() {
-        presentProfile()
-    }
-    
-    private func presentProfile() {
-        let controller = ProfileViewController()
-        controller.profileViewModel = ProfileViewModel(
-            container: viewModel.container)
-        
-        controller.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(controller, animated: true)
+        viewModel.presentProfileEdit()
     }
     
     private func setupTableView() {
@@ -123,11 +114,25 @@ extension SettingsViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        let alert = UIAlertController(title: "Logout", message: "Do you really want to logout?", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
-            self?.didConfirmLogout()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        let alert = UIAlertController(
+            title: "Logout",
+            message: "Do you really want to logout?",
+            preferredStyle: .actionSheet
+        )
+        alert.addAction(UIAlertAction(
+            title: "Confirm",
+            style: .default,
+            handler: {
+                [weak self] _ in
+                self?.didConfirmLogout()
+            })
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
         present(alert, animated: true)
     }
     
@@ -174,7 +179,7 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentProfile()
+        viewModel.presentProfileEdit()
     }
 }
 

@@ -14,6 +14,7 @@ public struct User {
 
 public protocol AuthService {
     var user: User? { get }
+    var isAuthenticated: Bool { get }
     
     func requestOTP(forPhoneNumber phoneNumber: String) async throws
     func authenticate(withOTP otp: String) async throws -> User
