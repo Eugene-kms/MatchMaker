@@ -1,6 +1,6 @@
 import UIKit
-import DesignSystem
 import MatchMakerAuthentication
+import MatchMakerDiscovery
 import MatchMakerSettings
 import Swinject
 
@@ -22,7 +22,6 @@ class TabBarController: UITabBarController {
         
         setupUI()
         setupViewControllers()
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +40,8 @@ class TabBarController: UITabBarController {
     }
     
     private func setupViewControllers() {
-        let home = UIViewController()
+        
+        let home = DiscoveryViewController()
         home.tabBarItem = Tab.home.tabBarItem
         
         let matches = UIViewController()
@@ -58,8 +58,6 @@ class TabBarController: UITabBarController {
             inbox,
             settings
         ]
-        
-        selectedViewController = settings
     }
     
     private func setupSettings() -> UIViewController {
