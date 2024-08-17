@@ -227,6 +227,7 @@ extension ProfileViewController: UITextFieldDelegate {
         switch type {
         case .name:
             profileViewModel.fullName = textField.text ?? ""
+            
         case .location:
             profileViewModel.location = textField.text ?? ""
         }

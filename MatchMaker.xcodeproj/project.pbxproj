@@ -13,6 +13,7 @@
 		4442B6AB2C4D94550022C0CB /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442B6AA2C4D94550022C0CB /* Tab.swift */; };
 		4442B6AD2C4D94740022C0CB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442B6AC2C4D94740022C0CB /* TabBarController.swift */; };
 		4442B6B32C4EFC890022C0CB /* MatchMakerSettings in Frameworks */ = {isa = PBXBuildFile; productRef = 4442B6B22C4EFC890022C0CB /* MatchMakerSettings */; };
+		449D55E32C6FE5B600506295 /* MatchMakerDiscovery in Frameworks */ = {isa = PBXBuildFile; productRef = 449D55E22C6FE5B600506295 /* MatchMakerDiscovery */; };
 		44BCFA242C39CC7B00E1FE10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA232C39CC7B00E1FE10 /* AppDelegate.swift */; };
 		44BCFA262C39CC7B00E1FE10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCFA252C39CC7B00E1FE10 /* SceneDelegate.swift */; };
 		44BCFA2D2C39CC7F00E1FE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44BCFA2C2C39CC7F00E1FE10 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449D55E32C6FE5B600506295 /* MatchMakerDiscovery in Frameworks */,
 				44BCFA3B2C39E3A400E1FE10 /* MatchMakerLogin in Frameworks */,
 				4432FA912C45BD9100EDF2F7 /* MatchMakerAuthentication in Frameworks */,
 				44FEC40C2C5A995C002B9785 /* Swinject in Frameworks */,
@@ -166,6 +168,7 @@
 				4442B6A42C4D51E10022C0CB /* MatchMakerCore */,
 				4442B6B22C4EFC890022C0CB /* MatchMakerSettings */,
 				44FEC40B2C5A995C002B9785 /* Swinject */,
+				449D55E22C6FE5B600506295 /* MatchMakerDiscovery */,
 			);
 			productName = MatchMaker;
 			productReference = 44BCFA202C39CC7A00E1FE10 /* MatchMaker.app */;
@@ -491,6 +494,10 @@
 		4442B6B22C4EFC890022C0CB /* MatchMakerSettings */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MatchMakerSettings;
+		};
+		449D55E22C6FE5B600506295 /* MatchMakerDiscovery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MatchMakerDiscovery;
 		};
 		44BCFA3A2C39E3A400E1FE10 /* MatchMakerLogin */ = {
 			isa = XCSwiftPackageProductDependency;

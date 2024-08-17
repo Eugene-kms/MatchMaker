@@ -2,7 +2,7 @@ import UIKit
 import MatchMakerAuthentication
 import Swinject
 
-enum TextFieldType{
+enum TextFieldType {
     case name
     case location
 }
