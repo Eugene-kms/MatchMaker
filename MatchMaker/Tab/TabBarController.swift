@@ -41,11 +41,9 @@ class TabBarController: UITabBarController {
     
     private func setupViewControllers() {
         
-        let home = DiscoveryViewController()
-        home.tabBarItem = Tab.home.tabBarItem
+        let home = setupDiscovery()
         
-        let matches = UIViewController()
-        matches.tabBarItem = Tab.matches.tabBarItem
+        let matches = setupMatches()
         
         let inbox = UIViewController()
         inbox.tabBarItem = Tab.inbox.tabBarItem
@@ -72,6 +70,34 @@ class TabBarController: UITabBarController {
         
         coordinator.rootViewController.tabBarItem = Tab.settings.tabBarItem
         coordinator.rootViewController.title = Tab.settings.tabBarItem.title
+                
+        return navContr
+    }
+    
+    private func setupDiscovery() -> UIViewController {
+        let navContr = UINavigationController()
+        
+        let coordinator = DiscoveryCoordinator(
+            navigationController: navContr,
+            container: container
+        )
+        coordinator.start()
+        
+        coordinator.rootViewController.tabBarItem = Tab.home.tabBarItem
+                
+        return navContr
+    }
+    
+    private func setupMatches() -> UIViewController {
+        let navContr = UINavigationController()
+        
+        let coordinator = MatchesCoordinator(
+            navigationController: navContr,
+            container: container
+        )
+        coordinator.start()
+        
+        coordinator.rootViewController.tabBarItem = Tab.matches.tabBarItem
                 
         return navContr
     }

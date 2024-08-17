@@ -21,105 +21,45 @@ let mockUsers = [
     User(uid: "4", name: "Sophia", imageURL: URL(string: "https://picsum.photos/seed/sophia/584/360")!)
 ]
 
-class CardView: UIView {
-    private let imageView = UIImageView()
-    private let overlayView = UIView()
-    private let nameLbl = UILabel()
+public class DiscoveryViewController: UIViewController {
     
-    private let user: User
+    private let cardStackView = CardStackView()
+    private let titleLbl = UILabel()
     
-    init(user: User) {
-        self.user = user
-        super.init(frame: .zero)
+    private let viewModel: DiscoveryViewModel
+    
+    public init(viewModel: DiscoveryViewModel) {
+        self.viewModel = viewModel
         
-        setupUI()
-        cinfigure(with: user)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
-        //Add corner radius to the card
-        layer.cornerRadius = 16
-        clipsToBounds = true
-        
-        //Image View
-        addSubview(imageView)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        //Overlay View (for gradient effect)
-        addSubview(overlayView)
-        overlayView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.8).cgColor]
-        gradientLayer.locations = [0.6, 1.0]
-        overlayView.layer.addSublayer(gradientLayer)
-        
-        //Name Lable
-        addSubview(nameLbl)
-        nameLbl.font = .cardTitle
-        nameLbl.textColor = .white
-        nameLbl.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(16)
-        }
-    }
-    
-    private func cinfigure(with user: User) {
-        nameLbl.text = user.name
-        imageView.sd_setImage(with: user.imageURL)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        overlayView.layer.sublayers?.first?.frame = overlayView.bounds
-    }
-}
-
-class CardStackView: UIView {
-    private var cardViews: [CardView] = []
-    
-    var topCard: CardView? {
-        cardViews.last
-    }
-    
-    func addCard(_ card: CardView) {
-        cardViews.append(card)
-        addSubview(card)
-        card.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-    
-    func removeTopCard() {
-        cardViews.removeLast()
-    }
-}
-
-public class DiscoveryViewController: UIViewController {
-    
-    private let cardStackView = CardStackView()
-    private let titleLbl = UILabel()
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadCards()
         setupUI()
         setupGestureRecognisers()
+        fetchCards()
+        
     }
     
-    private func loadCards() {
-        for user in mockUsers {
+    private func fetchCards() {
+        Task {
+            do {
+                try await viewModel.fetchPotentialMatches()
+                didFetchMatches()
+            } catch {
+                showError(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func didFetchMatches() {
+        for user in viewModel.potentailMatches {
             let cardView = CardView(user: user)
             cardStackView.addCard(cardView)
         }
