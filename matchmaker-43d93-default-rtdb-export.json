@@ -1,0 +1,36 @@
+{
+    "swipes": {
+        "saF79DxlDqPKyuGNw6CPnvD7z1U2": {
+            "yKePtLIM1rhtnHjbEubGTGQw9lC2": false,
+            "15vm6XcoXibf5cE95KyzH8U41mW2": true
+        },
+        "15vm6XcoXibf5cE95KyzH8U41mW2": {
+            "saF79DxlDqPKyuGNw6CPnvD7z1U2": true
+        }
+    },
+    "matches": {
+        "saF79DxlDqPKyuGNw6CPnvD7z1U2": {
+            "15vm6XcoXibf5cE95KyzH8U41mW2": true
+        },
+        "15vm6XcoXibf5cE95KyzH8U41mW2": {
+            "saF79DxlDqPKyuGNw6CPnvD7z1U2": true
+        }
+    },
+    "users": {
+        "saF79DxlDqPKyuGNw6CPnvD7z1U2": {
+        "fullName": "Anna",
+        "location": "London",
+        "profilePictureURL": "https://firebasestorage.googleapis.com:443/v0/b/matchmaker-43d93.appspot       .com/o/profilePicture%2FsaF79DxlDqPKyuGNw6CPnvD7z1U2.jpg?alt=media&token=c366fe6c-1979-40f8-b523-15df25cae7cb"
+        },
+        "yKePtLIM1rhtnHjbEubGTGQw9lC2": {
+        "fullName": "Iren",
+        "location": "Berlin",
+        "profilePictureURL": "https://firebasestorage.googleapis.com:443/v0/b/matchmaker-43d93.appspot       .com/o/profilePicture%2FyKePtLIM1rhtnHjbEubGTGQw9lC2.jpg?alt=media&token=84056c4b-1783-4908-b401-9c27d18f8efa"
+        },
+        "15vm6XcoXibf5cE95KyzH8U41mW2" : {
+        "fullName": "Ava",
+        "location": "NY",
+        "profilePictureUrl": "https://firebasestorage.googleapis.com:443/v0/b/matchmaker-43d93.appspot          .com/o/profilePicture%2FyKePtLIM1rhtnHjbEubGTGQw9lC2.jpg?alt=media&token=84056c4b-1783-4908-b401-9c27d18f8efa"
+        }
+    }
+}

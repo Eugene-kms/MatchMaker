@@ -75,7 +75,13 @@ let package = Package(
                 "DesignSystem",
                 "SnapKit",
                 "SDWebImage",
-                "Swinject"
+                "Swinject",
+                .product(
+                    name: "FirebaseAuth",
+                    package: "firebase-ios-sdk"),
+                .product(
+                    name: "FirebaseDatabase",
+                    package: "firebase-ios-sdk")
             ]
         ),
         
@@ -96,7 +102,8 @@ let package = Package(
                     package: "firebase-ios-sdk"),
                 .product(
                     name: "FirebaseDatabase",
-                    package: "firebase-ios-sdk")],
+                    package: "firebase-ios-sdk")
+            ],
             resources: [
                 .process("Resources")]
         )

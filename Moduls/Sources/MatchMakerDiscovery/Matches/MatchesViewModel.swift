@@ -6,7 +6,7 @@ class MatchesViewModel {
     
     init(container: Container) {}
     
-    func fetchMAtches() async throws {
+    func fetchMatches() async throws {
         matches = mockUsers
     }
 }

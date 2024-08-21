@@ -28,7 +28,7 @@ public class MatchesViewController: UIViewController {
     private func fetchMatches() {
         Task {
             do {
-                try await viewModel.fetchMAtches()
+                try await viewModel.fetchMatches()
                 collectionView.reloadData()
             } catch {
                 showError(error.localizedDescription)
