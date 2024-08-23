@@ -1,5 +1,6 @@
 import UIKit
 import MatchMakerAuthentication
+import MatchMakerCore
 import Swinject
 
 struct Header {

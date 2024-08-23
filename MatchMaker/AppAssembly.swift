@@ -1,6 +1,6 @@
 import Foundation
 import MatchMakerAuthentication
-import MatchMakerLogin
+import MatchMakerDiscovery
 import MatchMakerSettings
 import Swinject
 
@@ -29,6 +29,14 @@ class AppAssembly {
         
         container.register(ProfilePictureRepository.self) { container in
             return profilePictureRepository
+        }
+        
+        container.register(DiscoveryRepository.self) { _ in
+            DiscoveryRepositoryLive(authService: authService)
+        }
+        
+        container.register(MatchesRepository.self) { _ in
+            MatchesRepositoryLive(authService: authService)
         }
     }
 }
