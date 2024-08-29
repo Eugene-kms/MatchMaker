@@ -1,4 +1,5 @@
 import UIKit
+import MatchMakerSettings
 import DesignSystem
 import SnapKit
 
@@ -323,17 +324,27 @@ extension OTPViewController {
         
         let digits = textFields.map { $0.text ?? "" }
         
+        let settingsVC = SettingsViewController()
+        settingsVC.modalPresentationStyle = .overCurrentContext
+        self.present(settingsVC, animated: true)
+        
         Task { [weak self] in
             do {
                 try await self?.viewModel.verifyOTP(with: digits)
                 
-                let vc = UIViewController()
-                vc.modalPresentationStyle = .fullScreen
-                self?.navigationController?.setViewControllers([vc], animated: true)
+                settingsVC.dismiss(animated: true) { [weak self] in
+                    self?.didLoginSuccessfully()
+                }
             } catch {
-                self?.showError(error.localizedDescription)
-                self?.setContinueButtonEnabled()
+                settingsVC.dismiss(animated: true) { [weak self] in
+                    self?.showError(error.localizedDescription)
+                    self?.setContinueButtonEnabled()
+                }
             }
         }
+    }
+    
+    private func didLoginSuccessfully() {
+        NotificationCenter.default.post(.didLoginSuccessfully)
     }
 }

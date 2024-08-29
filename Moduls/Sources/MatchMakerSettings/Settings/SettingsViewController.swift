@@ -1,5 +1,4 @@
 import UIKit
-import MatchMakerLogin
 import DesignSystem
 import MatchMakerCore
 import SnapKit
@@ -10,7 +9,7 @@ public final class SettingsViewController: UIViewController {
     
     private var footerView: UIView!
     
-    let viewModel = SettingsViewModel()
+    public var viewModel: SettingsViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +19,15 @@ public final class SettingsViewController: UIViewController {
         
         view.layoutIfNeeded()
         styleFooterButton(in: footerView)
+        
+        viewModel.didUpdateHeader = { [weak self] in
+            self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        }
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchUserProfile()
     }
     
     private func configureTableView() {
@@ -40,16 +48,16 @@ extension SettingsViewController {
     }
     
     private func setupNavigationBar() {
-        setupNavigationTitle()
+        navigationItem.setMatchMakerTitle("Settings")
+        
         setupNavigationButton()
-    }
-    
-    private func setupNavigationTitle() {
-        let titleLable = UILabel()
-        titleLable.text = "Settings"
-        titleLable.font = .settingsTitle
-        titleLable.textColor = .text
-        navigationItem.titleView = titleLable
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: self,
+            action: nil
+        )
     }
     
     private func setupNavigationButton() {
@@ -65,7 +73,17 @@ extension SettingsViewController {
     }
     
     @objc private func rightBarButtonTapped() {
-        print("Edit Button Tapped!!!!!")
+        presentProfile()
+    }
+    
+    private func presentProfile() {
+        let controller = ProfileViewController()
+        controller.viewModel = ProfileViewModel(
+            userProfileRepository: viewModel.userProfileRepository,
+            profilePictureRepository: viewModel.profilePictureRepository
+        )
+        controller.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     private func setupTableView() {
@@ -102,7 +120,20 @@ extension SettingsViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        
+        let alert = UIAlertController(title: "Logout", message: "Do you really want to logout?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
+            self?.didConfirmLogout()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    private func didConfirmLogout() {
+        do {
+            try viewModel.logout()
+        } catch {
+            showError(error.localizedDescription)
+        }
     }
     
     private func styleFooterButton(in footerView: UIView) {
@@ -138,4 +169,9 @@ extension SettingsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         tableView.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - 108
     }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presentProfile()
+    }
 }
+

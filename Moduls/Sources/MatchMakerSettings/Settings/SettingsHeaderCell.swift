@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import SDWebImage
 
 class SettingsHeaderCell: UITableViewCell {
     
@@ -7,7 +8,7 @@ class SettingsHeaderCell: UITableViewCell {
     private weak var stackView: UIStackView!
     private weak var profileImageView: UIImageView!
     private weak var nameLable: UILabel!
-    private weak var descroptionLable: UILabel!
+    private weak var locationLable: UILabel!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -19,10 +20,12 @@ class SettingsHeaderCell: UITableViewCell {
         commonInit()
     }
     
-    func configure(with viewModel: SettingsViewModel.Header) {
-        profileImageView.image = viewModel.image
-        nameLable.text = viewModel.name
-        descroptionLable.text = viewModel.description
+    func configure(with header: Header) {
+        if let url = header.imageURL {
+            profileImageView.sd_setImage(with: url)
+        }
+        nameLable.text = header.name
+        locationLable.text = header.location
     }
     
     private func commonInit() {
@@ -75,6 +78,10 @@ extension SettingsHeaderCell {
     
     private func setupImageView() {
         let imageView = UIImageView()
+        imageView.image = UIImage(resource: .avatar)
+        imageView.layer.cornerRadius = 15
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         stackView.addArrangedSubview(imageView)
         
         imageView.snp.makeConstraints { make in
@@ -93,9 +100,9 @@ extension SettingsHeaderCell {
         stackView.addArrangedSubview(nameLbl)
         self.nameLable = nameLbl
         
-        let descriptionLbl = setupDescriptionLbl()
-        stackView.addArrangedSubview(descriptionLbl)
-        self.descroptionLable = descriptionLbl
+        let locationLable = setupLocationLbl()
+        stackView.addArrangedSubview(locationLable)
+        self.locationLable = locationLable
         
         self.stackView.addArrangedSubview(stackView)
     }
@@ -107,10 +114,10 @@ extension SettingsHeaderCell {
         return nameLbl
     }
     
-    private func setupDescriptionLbl() -> UILabel {
-        let descriptionLbl = UILabel()
-        descriptionLbl.font = .descriptionLbl
-        descriptionLbl.textColor = .descriptionLblColor
-        return descriptionLbl
+    private func setupLocationLbl() -> UILabel {
+        let locationLable = UILabel()
+        locationLable.font = .locationLbl
+        locationLable.textColor = .locationLblColor
+        return locationLable
     }
 }

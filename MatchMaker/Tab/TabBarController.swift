@@ -1,5 +1,6 @@
 import UIKit
 import DesignSystem
+import MatchMakerAuthentication
 import MatchMakerSettings
 
 class TabBarController: UITabBarController {
@@ -37,17 +38,33 @@ class TabBarController: UITabBarController {
         let inbox = UIViewController()
         inbox.tabBarItem = Tab.inbox.tabBarItem
         
-        let settings = SettingsViewController()
-        let settingsNavContr = UINavigationController(rootViewController: settings)
-        settings.tabBarItem = Tab.settings.tabBarItem
-        settings.title = Tab.settings.tabBarItem.title
+        let settings = setupSettings()
         
         viewControllers = [
             home,
             matches,
             inbox,
-            settingsNavContr]
+            settings]
         
-        selectedViewController = settingsNavContr
+        selectedViewController = settings
+    }
+    
+    private func setupSettings() -> UIViewController {
+        let settings = SettingsViewController()
+        
+        let authService = AuthServiceLive()
+        let profilePictureRepository = UserProfileRepositoryLive(authService: authService)
+        settings.viewModel = SettingsViewModel(
+            authService: authService,
+            userProfileRepository: profilePictureRepository,
+            profilePictureRepository:
+                ProfilePictureRepositoryLive(
+                authService: authService,
+                userProfileRepository: profilePictureRepository)
+        )
+        let settingsNavContr = UINavigationController(rootViewController: settings)
+        settings.tabBarItem = Tab.settings.tabBarItem
+        settings.title = Tab.settings.tabBarItem.title
+        return settingsNavContr
     }
 }

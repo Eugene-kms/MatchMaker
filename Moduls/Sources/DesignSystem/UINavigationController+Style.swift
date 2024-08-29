@@ -1,14 +1,18 @@
 import UIKit
 
 public extension UINavigationController {
-    func styleMatchMaker() {
-        navigationBar.tintColor = .accent
+    static func styleMatchMaker() {
+        
+        let appearence = UINavigationBar.appearance()
+        
+        appearence.tintColor = .accent
         
         let imgBack = UIImage(resource: .chevronLeft)
+
+        appearence.backIndicatorImage = imgBack
+        appearence.backIndicatorTransitionMaskImage = imgBack
+        appearence.barTintColor = .background
         
-        navigationBar.backIndicatorImage = imgBack
-        navigationBar.backIndicatorTransitionMaskImage = imgBack
-        
-        navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        appearence.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 }
