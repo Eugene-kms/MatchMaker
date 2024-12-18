@@ -70,8 +70,6 @@ extension OTPViewController {
         let animationCurveRaw = animationCurveRawNumber?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
         let animationCurve = UIView.AnimationOptions(rawValue: animationCurveRaw)
         
-//        let isKeyboardHidden = endFrame.origin.y >= UIScreen.main.bounds.size.height
-//        isKeyboardHidden ? -40 :
         let topMargin = -endFrame.height + view.safeAreaInsets.bottom - 16
         
         continueButton.snp.updateConstraints { make in

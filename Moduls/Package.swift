@@ -6,15 +6,25 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         
-        .library(name: "DesignSystem",
-                 targets: ["DesignSystem"]),
+        .library(
+            name: "DesignSystem",
+            targets: ["DesignSystem"]),
         
-        .library(name: "MatchMakerAuthentication",
-                 targets: ["MatchMakerAuthentication"]),
+        .library(
+            name: "MatchMakerAuthentication",
+            targets: ["MatchMakerAuthentication"]),
+        
+        .library(
+            name: "MatchMakerCore",
+            targets: ["MatchMakerCore"]),
         
         .library(
             name: "MatchMakerLogin",
-            targets: ["MatchMakerLogin"])
+            targets: ["MatchMakerLogin"]),
+        
+        .library(
+            name: "MatchMakerSettings",
+            targets: ["MatchMakerSettings"])
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.29.0"),
@@ -23,7 +33,11 @@ let package = Package(
     ],
     
     targets: [
-        .target(name: "DesignSystem"),
+        .target(
+            name: "DesignSystem",
+            resources: [
+                .process("Resources")
+            ]),
         
         .target(
             name: "MatchMakerAuthentication",
@@ -33,15 +47,29 @@ let package = Package(
                     package: "firebase-ios-sdk")
             ]),
         
+        .target(name: "MatchMakerCore"),
+        
         .target(
             name: "MatchMakerLogin",
             dependencies: [
-                "MatchMakerAuthentication",
                 "DesignSystem",
+                "MatchMakerAuthentication",
+                "MatchMakerCore",
                 "SnapKit",
                 "PhoneNumberKit"],
             resources: [
                 .process("Resources")]
         ),
+        
+        .target(
+            name: "MatchMakerSettings",
+            dependencies: [
+                "DesignSystem",
+                "MatchMakerCore",
+                "MatchMakerLogin",
+                "SnapKit"],
+            resources: [
+                .process("Resources")]
+        )
     ]
 )

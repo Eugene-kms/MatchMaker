@@ -19,7 +19,13 @@ public protocol AuthService {
 
 public class AuthServiceLive: AuthService  {
     
-    public init() { }
+    public var isAuthenticated: Bool {
+        Auth.auth().currentUser != nil
+    }
+    
+    public init() { 
+//        try? Auth.auth().signOut()
+    }
     
     public func requestOTP(forPhoneNumber phoneNumber: String) async throws {
         
